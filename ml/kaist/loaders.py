@@ -73,10 +73,6 @@ def discover_sessions() -> dict[str, SessionFiles]:
 
 def load_vibration(path: Path) -> tuple[np.ndarray, float]:
     """Retorna (sinal (n, 4) em m/s^2, fs em Hz).
-
-    Os dados sao gravados pelo LMS Test.Lab em MKS; o campo
-    y_values.quantity.unit_transformation.factor (= 1/9.80665) e o fator de
-    conversao para g, aplicado depois na extracao de features se desejado.
     """
     mat = loadmat(path, struct_as_record=False, squeeze_me=True)
     signal = mat["Signal"]

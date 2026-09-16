@@ -49,25 +49,22 @@ SEVERITY_PHYSICAL = {
 class SessionMeta:
     """Metadados de uma sessao de gravacao (= um grupo no split treino/teste)."""
 
-    session_id: str        # nome canonico, ex. "2Nm_Unbalance_0583mg"
+    session_id: str        # nome canonico
     load_nm: int           # 0, 2 ou 4 Nm
-    fault_family: str      # normal | bearing | misalignment | unbalance
-    fault_location: str    # none | inner_race | outer_race | shaft | rotor
-    severity_code: str     # codigo cru do nome do arquivo ("", "03", "0583"...)
+    fault_family: str      # normal bearing misalignment  unbalance
+    fault_location: str    # none  inner_race  outer_race  shaft rotor
+    severity_code: str     # codigo cru do nome do arquivo 
     severity_level: int    # 0 = normal, 1..N crescente dentro da familia
     severity_value: float  # valor fisico (mm, nivel ou mg)
     severity_unit: str
-    label: str             # HEALTHY | WARNING | FAILURE
+    label: str             # HEALTHY WARNING  FAILURE
 
     @property
     def specimen_id(self) -> str:
-        """Identificador da UNIDADE EXPERIMENTAL FISICA (a montagem da bancada).
+        """Identificador da UNIDADE EXPERIMENTAL FISICA.
 
         O protocolo do KAIST montou cada defeito uma unica vez e o mediu sob as
-        tres cargas em sequencia (6 a 43 min de intervalo, ver Anexo A de
-        docs/01-inventario-dataset.md). Logo, as tres sessoes de um mesmo defeito
-        NAO sao replicas independentes: compartilham rolamento, fixacao e
-        alinhamento. O split de treino/teste agrupa por este identificador.
+        tres cargas em sequencia (6 a 43 min de intervalo
 
         Sao 15 especimes: 1 normal + 14 de falha.
         """

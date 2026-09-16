@@ -163,7 +163,7 @@ def current_features(block: np.ndarray, fs: float) -> dict[str, float]:
 
 
 def temperature_metadata(temp1: np.ndarray, temp2: np.ndarray) -> dict[str, float]:
-    """Temperatura NAO entra no modelo — extraida so como metadado (prefixo meta_)."""
+    """Temperatura NAO entra no modelo"""
     return {
         "meta_temp1_mean": float(temp1.mean()),
         "meta_temp2_mean": float(temp2.mean()),

@@ -48,7 +48,7 @@ class PredictionResult:
     """Saida do diagnostico.
 
     `ml_severity` e mantida como resultado do experimento preliminar, para
-    comparacao — nao alimenta alertas nem decisao.
+    comparacao.
     """
 
     profile: str
@@ -62,7 +62,7 @@ class PredictionResult:
     v_rms_mms: float
     ratio_to_baseline: float | None
 
-    # severidade prevista pelo modelo — experimento preliminar, informativa
+    # severidade prevista pelo modelo — experimento preliminar.
     ml_severity: str
     ml_severity_probabilities: dict[str, float]
 

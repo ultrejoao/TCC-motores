@@ -46,11 +46,6 @@ PROFILES: dict[str, ProfileSpec] = {
 
 def select_profile(n_vibration_channels: int, has_current: bool) -> str:
     """Escolhe o perfil mais completo compativel com o que foi enviado.
-
-    Um arquivo de quatro canais sem corrente cai no perfil de um canal. Nao ha
-    perfil dedicado a essa combinacao: a instrumentacao em uso tem um sensor so,
-    e rotear para um perfil sem artefato treinado desviaria a inferencia para um
-    modelo inexistente.
     """
     if n_vibration_channels >= 4 and has_current:
         return PROFILE_FULL
@@ -107,12 +102,8 @@ def extract_windows(signal: RawSignal, profile: str, window_seconds: float = 1.0
                     load_nm: float | None = None,
                     rot_hz: float = ROTATION_HZ) -> list[dict[str, float]]:
     """Extrai as features de todas as janelas de um sinal.
-
-    Retorna uma lista de dicionarios, um por janela. O chamador decide como
-    agregar as janelas numa unica predicao (ver `aggregate_windows`).
-
-    `rot_hz` e a rotacao do eixo medido. O padrao reproduz a bancada KAIST, de
-    modo que o treino permanece identico; em campo o valor deve vir do motor.
+    Retorna uma lista de dicionarios, um por janela.
+    `rot_hz` e a rotacao do eixo medido. 
     """
     if profile not in PROFILES:
         raise ValueError(f"perfil desconhecido: {profile}")
@@ -149,9 +140,6 @@ def extract_windows(signal: RawSignal, profile: str, window_seconds: float = 1.0
 
 def aggregate_windows(janelas: list[dict[str, float]]) -> dict[str, float]:
     """Resume as janelas de uma medicao numa unica linha de features.
-
-    Usa a MEDIANA, nao a media: uma janela contaminada por impacto pontual
-    (batida, ajuste do sensor durante a coleta) desloca a media e nao a mediana.
     """
     if not janelas:
         raise ValueError("nenhuma janela extraida")
