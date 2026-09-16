@@ -112,6 +112,7 @@ export interface MotorDetail extends Motor {
   last_measurement_at: string | null;
   last_severity: Severity | null;
   last_fault_type: FaultType | null;
+  last_is_baseline: boolean;
   open_alerts: number;
   max_priority: number;
   has_baseline: boolean;

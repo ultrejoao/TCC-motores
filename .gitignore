@@ -45,3 +45,6 @@ frontend/*.tsbuildinfo
 
 # Amostras de demonstracao (regeneraveis por 11_gerar_amostras_demo.py)
 ml/data/demo_samples/*.csv
+
+# Backups locais do banco e dos sinais enviados (nunca versionar)
+backups/

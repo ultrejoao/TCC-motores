@@ -107,6 +107,7 @@ class MotorDetail(MotorOut):
     last_measurement_at: datetime | None = None
     last_severity: str | None = None
     last_fault_type: str | None = None
+    last_is_baseline: bool = False
     open_alerts: int = 0
     max_priority: float = 0.0
     has_baseline: bool = False

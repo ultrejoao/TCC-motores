@@ -123,6 +123,7 @@ def _abrir_alerta(db: Session, motor: Motor, pred: Prediction,
         previous_indicators=anterior,
         criticality=motor.criticality,
         motor_tag=motor.tag,
+        is_baseline=medicao.is_baseline,
     )
     if not decisao.should_alert:
         return None

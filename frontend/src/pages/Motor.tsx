@@ -152,7 +152,11 @@ export default function Motor() {
         <div className="cartao">
           <Metrica
             rotulo="Diagnóstico"
-            valor={m.last_fault_type ? ROTULO_FALHA[m.last_fault_type] : "—"}
+            valor={
+              m.last_is_baseline
+                ? "Referência"
+                : m.last_fault_type ? ROTULO_FALHA[m.last_fault_type] : "—"
+            }
           />
         </div>
         <div className="cartao">
@@ -356,11 +360,19 @@ export default function Motor() {
                     <td className="mono">{x.iso_a_hf_g?.toFixed(3) ?? "—"}</td>
                     <td className="mono">{x.iso_zone ?? "—"}</td>
                     <td>
-                      {x.fault_type ? ROTULO_FALHA[x.fault_type] : "—"}
+                      {x.is_baseline ? (
+                        <span className="faint">Referência — condição normal</span>
+                      ) : x.fault_type ? (
+                        ROTULO_FALHA[x.fault_type]
+                      ) : (
+                        "—"
+                      )}
                     </td>
                     <td className="mono">{x.load_nm ?? "—"}</td>
                     <td>
-                      {x.inspected ? (
+                      {x.is_baseline ? (
+                        <span className="faint">—</span>
+                      ) : x.inspected ? (
                         <span className="faint">confirmada</span>
                       ) : x.prediction_id ? (
                         <button

@@ -110,13 +110,25 @@ export default function Coleta() {
         >
           <div className="linha" style={{ gap: "0.7rem", flexWrap: "wrap" }}>
             <SeloSeveridade valor={p.severity} />
-            <SeloEvidencia concorda={p.evidence_agreement} tipoFisico={p.physical_type} />
+            {!resultado.is_baseline && (
+              <SeloEvidencia concorda={p.evidence_agreement} tipoFisico={p.physical_type} />
+            )}
           </div>
 
-          <h2 style={{ margin: "0.7rem 0 0.2rem" }}>{ROTULO_FALHA[p.fault_type]}</h2>
+          <h2 style={{ margin: "0.7rem 0 0.2rem" }}>
+            {resultado.is_baseline ? "Referência — condição normal" : ROTULO_FALHA[p.fault_type]}
+          </h2>
+
+          {resultado.is_baseline && (
+            <p className="faint" style={{ margin: "0.3rem 0 0" }}>
+              Medição registrada como condição normal deste motor. As próximas coletas
+              serão comparadas com ela.
+            </p>
+          )}
 
           {/* Duas origens distintas, exibidas como tais: o modelo responde o
               TIPO; a severidade vem de critério físico normativo. */}
+          {!resultado.is_baseline && (
           <div style={{ margin: "0.8rem 0" }}>
             <div className="faint" style={{ marginBottom: "0.25rem" }}>
               Tipo de falha — identificado pelo modelo
@@ -130,6 +142,7 @@ export default function Coleta() {
             </div>
             <BarraConfianca valor={p.confidence} />
           </div>
+          )}
 
           <div
             style={{

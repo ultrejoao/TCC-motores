@@ -87,6 +87,7 @@ def listar_motores(
         detalhe.last_measurement_at = ultima.collected_at if ultima else None
         detalhe.last_severity = pred.severity if pred else None
         detalhe.last_fault_type = pred.fault_type if pred else None
+        detalhe.last_is_baseline = bool(ultima and ultima.is_baseline)
         detalhe.open_alerts = db.scalar(
             select(func.count()).select_from(Alert)
             .where(Alert.motor_id == motor.id, Alert.status == "OPEN")) or 0
@@ -145,6 +146,7 @@ def obter_motor(motor_id: uuid.UUID, db: DbSession, user: CurrentUser) -> MotorD
     detalhe.last_measurement_at = ultima.collected_at if ultima else None
     detalhe.last_severity = pred.severity if pred else None
     detalhe.last_fault_type = pred.fault_type if pred else None
+    detalhe.last_is_baseline = bool(ultima and ultima.is_baseline)
     detalhe.open_alerts = db.scalar(
         select(func.count()).select_from(Alert)
         .where(Alert.motor_id == motor.id, Alert.status == "OPEN")) or 0

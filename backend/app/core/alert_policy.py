@@ -114,7 +114,8 @@ def evaluate(*, severity: str, fault_type: str, confidence: float,
              iso_zone: str | None, indicators: dict[str, float],
              baseline_comparison: dict | None = None,
              previous_indicators: dict[str, float] | None = None,
-             criticality: str = "B", motor_tag: str = "") -> AlertDecision:
+             criticality: str = "B", motor_tag: str = "",
+             is_baseline: bool = False) -> AlertDecision:
     """Aplica a politica. A primeira regra que casa define o alerta.
 
     A ordem das regras nao e arbitraria: casos de FAILURE e de nivel normativo
@@ -137,8 +138,11 @@ def evaluate(*, severity: str, fault_type: str, confidence: float,
         razoes.append("divergencia entre modelo e evidencia fisica"
                       if not evidence_agreement
                       else f"confianca do modelo abaixo de {CONFIDENCE_THRESHOLD:.0%}")
-    elif severity == "HEALTHY" and not evidence_agreement and physical_type not in (
-            None, "normal"):
+    # Na medicao de referencia a condicao normal e declarada pelo tecnico; a
+    # divergencia do modelo contra essa declaracao nao abre alerta. As regras
+    # de severidade e de norma continuam valendo para ela.
+    elif (severity == "HEALTHY" and not evidence_agreement and not is_baseline
+          and physical_type not in (None, "normal")):
         regra = AlertRule.DIVERGENCIA_EM_SAUDAVEL
         razoes.append(
             f"modelo indicou condicao saudavel com {confidence:.0%} de confianca, "
