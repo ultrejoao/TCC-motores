@@ -42,14 +42,6 @@ docker compose exec api python scripts/seed_admin.py --email voce@empresa.com --
 
 A senha é pedida no terminal (mínimo de 12 caracteres) e não aparece na tela.
 
-Para carregar os três motores de demonstração (MT-101, MT-102 e MT-103), criados a
-partir das amostras em `ml/data/demo_samples/`:
-
-```bash
-docker compose exec api python scripts/seed_demo.py
-```
-
-Se eles já existirem, `--recriar` apaga os três e cria de novo.
 
 Três serviços: `db` (PostgreSQL, sem porta exposta), `api` (FastAPI com a camada
 de ML no mesmo processo) e `web` (nginx servindo a interface e fazendo proxy da
