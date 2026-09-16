@@ -5,8 +5,8 @@ ml/data/raw/
 ml/data/interim/*.parquet
 ml/data/interim/*.csv
 
-# Modelo serializado (regeneravel por ml/scripts/09_train_profiles.py)
-ml/artifacts/*.joblib
+# Os modelos treinados (ml/artifacts/*.joblib) SAO versionados: regenera-los
+# exige os 7,6 GB de dados brutos, e sem eles um clone nao consegue diagnosticar.
 
 # Python
 __pycache__/
@@ -43,8 +43,8 @@ frontend/node_modules/
 frontend/dist/
 frontend/*.tsbuildinfo
 
-# Amostras de demonstracao (regeneraveis por 11_gerar_amostras_demo.py)
-ml/data/demo_samples/*.csv
+# As amostras de demonstracao (ml/data/demo_samples/*.csv) SAO versionadas:
+# regenera-las tambem exige os dados brutos.
 
 # Backups locais do banco e dos sinais enviados (nunca versionar)
 backups/
