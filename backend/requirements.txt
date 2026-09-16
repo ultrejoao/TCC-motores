@@ -18,6 +18,9 @@ argon2-cffi==23.1.0
 pyjwt==2.10.1
 slowapi==0.1.9
 
+# Cliente HTTP usado por scripts/seed_demo.py para passar pelo fluxo real da API
+httpx==0.28.1
+
 # ML (compartilhado com o pipeline em ml/)
 #
 # VERSOES FIXAS, e nao por preferencia de estilo: o artefato .joblib carrega
